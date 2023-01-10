@@ -15,11 +15,11 @@ async function bootstrap() {
       'Essa é a documentação da API criada para o desafio Sharenergy',
     )
     .setVersion('1.0')
-    .addTag('home')
+    .addTag('status')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  await app.listen(3333);
 }
 bootstrap();
