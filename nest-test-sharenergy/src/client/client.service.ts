@@ -20,19 +20,19 @@ export class ClientService {
     return client;
   }
 
-  async create(dto: CreateClientDto) {
+  async create(dto: CreateClientDto): Promise<Client> {
     return await this.prisma.client.create({ data: dto });
   }
 
-  findAll() {
+  findAll(): Promise<Client[]> {
     return this.prisma.client.findMany();
   }
 
-  findOne(id: string) {
+  findOne(id: string): Promise<Client> {
     return this.verifyIdClient(id);
   }
 
-  async update(id: string, dto: UpdateClientDto) {
+  async update(id: string, dto: UpdateClientDto): Promise<Client> {
     await this.verifyIdClient(id);
 
     return this.prisma.client.update({ where: { id }, data: dto });
