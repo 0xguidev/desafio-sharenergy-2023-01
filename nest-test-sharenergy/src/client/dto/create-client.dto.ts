@@ -20,9 +20,11 @@ export class CreateClientDto {
   @IsPhoneNumber('BR')
   phone: string;
 
+  @IsNotEmpty()
   @IsString()
   address: string;
 
+  @IsNotEmpty()
   @IsString()
   cpf: string;
 }
