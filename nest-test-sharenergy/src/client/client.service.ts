@@ -1,29 +1,46 @@
 import { Injectable } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common/exceptions';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { Client } from './entities/client.entity';
 
 @Injectable()
 export class ClientService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createClientDto: CreateClientDto) {
-    return 'This action adds a new client';
+  async verifyIdClient(id: string): Promise<Client> {
+    const client: Client = await this.prisma.client.findUnique({
+      where: { id },
+    });
+
+    if (!client) {
+      throw new NotFoundException(`O id ${id} não é válido`);
+    }
+    return client;
+  }
+
+  async create(dto: CreateClientDto) {
+    return await this.prisma.client.create({ data: dto });
   }
 
   findAll() {
-    return `This action returns all client`;
+    return this.prisma.client.findMany();
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} client`;
+    return this.verifyIdClient(id);
   }
 
-  update(id: string, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  async update(id: string, dto: UpdateClientDto) {
+    await this.verifyIdClient(id);
+
+    return this.prisma.client.update({ where: { id }, data: dto });
   }
 
   remove(id: string) {
-    return `This action removes a #${id} client`;
+    this.verifyIdClient(id);
+
+    return this.prisma.client.delete({ where: { id } });
   }
 }
