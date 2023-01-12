@@ -1,1 +1,10 @@
-export class Client {}
+export class Client {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  cpf: string;
+  createAt?: Date;
+  updatedAt?: Date;
+}
