@@ -21,8 +21,8 @@ export class ClientController {
   @ApiOperation({
     summary: 'Create new client',
   })
-  create(@Body() createClientDto: CreateClientDto) {
-    return this.clientService.create(createClientDto);
+  create(@Body() dto: CreateClientDto) {
+    return this.clientService.create(dto);
   }
 
   @Get()
@@ -45,8 +45,8 @@ export class ClientController {
   @ApiOperation({
     summary: 'Update client by id',
   })
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientService.update(id, updateClientDto);
+  update(@Param('id') id: string, @Body() dto: UpdateClientDto) {
+    return this.clientService.update(id, dto);
   }
 
   @Delete(':id')
